@@ -31,11 +31,6 @@ const controlRecipes = async function () {
 
     // 2) Rendering Recipe
     recipeView.render(model.state.recipe);
-
-    // 3) Ensure Icons are Updated AFTER Rendering
-    setTimeout(() => {
-      recipeView.updateIcons();
-    }, 0); // Ensure the DOM has time to update
   } catch (err) {
     recipeView.renderError();
   }
@@ -54,6 +49,7 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(query);
 
     // 3) Render results
+    // resultsView.render(model.state.search.results);
     resultsView.render(model.getSearchResultsPage());
 
     // 4) Render initial pagination buttons
@@ -64,31 +60,32 @@ const controlSearchResults = async function () {
 };
 
 const controlPagination = function (goToPage) {
+  // 1) Render NEW results
   resultsView.render(model.getSearchResultsPage(goToPage));
+
+  // 2) Render NEW pagination buttons
   paginationView.render(model.state.search);
 };
 
 const controlServings = function (newServings) {
+  // Update the recipe servings (in state)
   model.updateServings(newServings);
-  recipeView.update(model.state.recipe);
 
-  // Ensure icons are updated
-  setTimeout(() => {
-    recipeView.updateIcons();
-  }, 0);
+  // Update the recipe view
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 const controlAddBookmark = function () {
+  // 1) Add/Remove bookmark
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   else model.deleteBookmark(model.state.recipe.id);
 
+  // 2) Update recipe view
   recipeView.update(model.state.recipe);
-  bookmarksView.render(model.state.bookmarks);
 
-  // Ensure icons are updated
-  setTimeout(() => {
-    recipeView.updateIcons();
-  }, 0);
+  // 3) Render bookmarks
+  bookmarksView.render(model.state.bookmarks);
 };
 
 const controlBookmarks = function () {
@@ -97,19 +94,28 @@ const controlBookmarks = function () {
 
 const controlAddRecipe = async function (newRecipe) {
   try {
+    // Show loading spinner
     addRecipeView.renderSpinner();
+
+    // Upload new recipe data
     await model.uploadRecipe(newRecipe);
     console.log(model.state.recipe);
 
+    // Render recipe
     recipeView.render(model.state.recipe);
+
+    // Success message
     addRecipeView.renderMessage();
+
+    // Render bookmark view
     bookmarksView.render(model.state.bookmarks);
 
+    // Change ID in URL
     window.history.pushState(null, "", `#${model.state.recipe.id}`);
 
-    setTimeout(() => {
+    // Close form window
+    setTimeout(function () {
       addRecipeView.toggleWindow();
-      recipeView.updateIcons();
     }, MODAL_CLOSE_SEC * 1000);
   } catch (err) {
     console.error("💥", err);
