@@ -28,7 +28,7 @@
           />
           <button class="btn search__btn">
             <svg class="search__icon">
-              <use id="search-icon"></use>
+              <use class="icon-search"></use>
             </svg>
             <span>Search</span>
           </button>
@@ -39,7 +39,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
-                  <use id="edit-icon"></use>
+                  <use class="icon-edit"></use>
                 </svg>
                 <span>Add recipe</span>
               </button>
@@ -47,7 +47,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--bookmarks">
                 <svg class="nav__icon">
-                  <use id="bookmark-icon"></use>
+                  <use class="icon-bookmark"></use>
                 </svg>
                 <span>Bookmarks</span>
               </button>
@@ -56,7 +56,7 @@
                   <div class="message">
                     <div>
                       <svg>
-                        <use id="smile-icon"></use>
+                        <use class="icon-smile"></use>
                       </svg>
                     </div>
                     <p>
@@ -137,7 +137,7 @@
         <div class="message">
           <div>
             <svg>
-              <use href="src/img/icons.svg#icon-smile"></use>
+              <use class="icon-smile"></use>
             </svg>
           </div>
           <p>Start by searching for a recipe or an ingredient. Have fun!</p>
@@ -330,19 +330,10 @@
     </div>
     <script type="module">
       import icons from "url:./src/img/icons.svg";
-
-      document
-        .getElementById("search-icon")
-        .setAttribute("href", `${icons}#icon-search`);
-      document
-        .getElementById("edit-icon")
-        .setAttribute("href", `${icons}#icon-edit`);
-      document
-        .getElementById("bookmark-icon")
-        .setAttribute("href", `${icons}#icon-bookmark`);
-      document
-        .getElementById("smile-icon")
-        .setAttribute("href", `${icons}#icon-smile`);
+      document.querySelectorAll('use[class^="icon-"]').forEach((use) => {
+        const iconName = use.classList[0].replace("icon-", "");
+        use.setAttribute("href", `${icons}#icon-${iconName}`);
+      });
     </script>
   </body>
 </html>
