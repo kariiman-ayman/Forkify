@@ -28,7 +28,7 @@
           />
           <button class="btn search__btn">
             <svg class="search__icon">
-              <use href="src/img/icons.svg#icon-search"></use>
+              <use id="search-icon"></use>
             </svg>
             <span>Search</span>
           </button>
@@ -39,7 +39,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--add-recipe">
                 <svg class="nav__icon">
-                  <use href="src/img/icons.svg#icon-edit"></use>
+                  <use id="edit-icon"></use>
                 </svg>
                 <span>Add recipe</span>
               </button>
@@ -47,7 +47,7 @@
             <li class="nav__item">
               <button class="nav__btn nav__btn--bookmarks">
                 <svg class="nav__icon">
-                  <use href="src/img/icons.svg#icon-bookmark"></use>
+                  <use id="bookmark-icon"></use>
                 </svg>
                 <span>Bookmarks</span>
               </button>
@@ -56,7 +56,7 @@
                   <div class="message">
                     <div>
                       <svg>
-                        <use href="src/img/icons.svg#icon-smile"></use>
+                        <use id="smile-icon"></use>
                       </svg>
                     </div>
                     <p>
@@ -328,5 +328,21 @@
         </button>
       </form>
     </div>
+    <script type="module">
+      import icons from "url:../img/icons.svg";
+
+      document
+        .getElementById("search-icon")
+        .setAttribute("href", `${icons}#icon-search`);
+      document
+        .getElementById("edit-icon")
+        .setAttribute("href", `${icons}#icon-edit`);
+      document
+        .getElementById("bookmark-icon")
+        .setAttribute("href", `${icons}#icon-bookmark`);
+      document
+        .getElementById("smile-icon")
+        .setAttribute("href", `${icons}#icon-smile`);
+    </script>
   </body>
 </html>
