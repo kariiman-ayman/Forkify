@@ -2,7 +2,7 @@
 
 Welcome to **Forkify**! 🎉 This is a modern recipe search application that allows users to search for recipes, view detailed instructions, and even add their own favorite recipes! 🍕🍔🥗
 
-🔗 **Live Demo:** [Forkify Website](https://forkify-kariman.netlify.app/) <br />
+🔗 **Live Demo:** [Forkify Website](https://forkify-kariman.vercel.app/) <br />
 🔗 **API Used:** [Forkify API](https://forkify-api.herokuapp.com/v2)
 
 ---
